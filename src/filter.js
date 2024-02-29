@@ -53,6 +53,9 @@ const AVOIDED_USERNAMES = [
   "femboy"
 ];
 
+const GREEN = "#003600";
+const GRAY = "#202324";
+
 console.log({
   AVOIDED_USERNAMES,
   AVOIDED_COUNTRY_CODES,
@@ -62,18 +65,11 @@ console.log({
 
 let filterMode = "strict";
 
-const filterButtonsCommon = (e, newFilterMode, parent) => {
+const filterButtonsCommon = (e, newFilterMode) => {
   e.preventDefault();
   e.stopPropagation();
   filterMode = newFilterMode;
   alterUi();
-  for (const elem of parent.children) {
-    if (elem === e.target) {
-      elem.style.background = "#ff0000";
-    } else {
-      elem.style.background = "#131516";
-    }
-  }
 };
 
 const alterUi = () =>
@@ -102,7 +98,7 @@ const alterUi = () =>
     progressBar.style.left = "0px";
     progressBar.style.top = "0px";
     progressBar.style.bottom = "0px";
-    progressBar.style.backgroundColor = "#003600";
+    progressBar.style.backgroundColor = GREEN;
     progressBar.style.width = `${percentage}%`;
 
     const filterButtons = document.createElement("div");
@@ -121,14 +117,19 @@ const alterUi = () =>
     
     filterNone.innerText = "N";
     filterNone.style.border = "0px";
-    filterNone.onclick = (e) => filterButtonsCommon(e, "none", filterButtons);
+    filterNone.style.paddingLeft = "7px";
+    filterNone.style.background = filterMode == "none" ? GREEN : GRAY;
+    filterNone.onclick = (e) => filterButtonsCommon(e, "none");
 
     filterLax.innerText = "L";
     filterLax.style.border = "0px";
-    filterLax.onclick = (e) => filterButtonsCommon(e, "lax", filterButtons);
+    filterLax.style.background = filterMode == "lax" ? GREEN : GRAY;
+    filterLax.onclick = (e) => filterButtonsCommon(e, "lax");
     filterStrict.innerText = "S";
     filterStrict.style.border = "0px";
-    filterStrict.onclick = (e) => filterButtonsCommon(e, "strict", filterButtons);
+    filterStrict.style.paddingRight = "7px";
+    filterStrict.style.background = filterMode == "strict" ? GREEN : GRAY;
+    filterStrict.onclick = (e) => filterButtonsCommon(e, "strict");
     
     hudContainer.innerHTML = "";
     hudContainer.style.display = "flex";
@@ -214,7 +215,10 @@ const alterUi = () =>
       available: cards.length - avoidList.length,
     });
 
-    console.log(avoidList.map(({reasons, props}) => ({reasons, ...props})));
+    console.log(
+      filterMode,
+      avoidList.map(({ reasons, props }) => ({ reasons, ...props }))
+    );
   }
   
   evaluateCards();
