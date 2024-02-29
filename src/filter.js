@@ -1,3 +1,7 @@
+const AVOIDED_USER_IDS = [
+  "191277021"
+]
+
 const AVOIDED_COUNTRY_CODES = [
   "AE",
   "JP",
@@ -42,7 +46,12 @@ const AVOIDED_USERNAMES = [
   "femboy"
 ];
 
-console.log({ AVOIDED_USERNAMES, AVOIDED_COUNTRY_CODES });
+console.log({
+  AVOIDED_USERNAMES,
+  AVOIDED_COUNTRY_CODES,
+  OPTIONAL_COUNTRY_CODES,
+  AVOIDED_USER_IDS,
+});
 
 let allowOptionalCountries = false;
 
@@ -125,6 +134,11 @@ const alterUi = () =>
       const username = usernameRaw.toUpperCase();
       const [ city, countryCodeRaw ] = card.querySelector("p.location.text-ellipsis").innerText.split(", ");
       const countryCode = countryCodeRaw.toUpperCase();
+      const profileId = card.querySelector("a").href.split("/").at(-1);
+
+      if (AVOIDED_USER_IDS.includes(profileId)) {
+        avoidSet.add(card);
+      }
 
       if(avoidedCountryCodes.includes(countryCode)) {
         avoidSet.add(card);
