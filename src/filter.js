@@ -58,10 +58,12 @@ const alterUi = () =>
     if(!hudContainer) {
       return;
     }
+    const percentage = Math.round(available / total * 100);
+
     hudContainer.style.backgroundColor = "rgb(0, 73, 119)";
-    const numberContainer = document.createElement("span");
+    const numberContainer = document.createElement("div");
     numberContainer.style.zIndex = "1";
-    numberContainer.innerText = `${available} of ${total}`;
+    numberContainer.innerText = `${available}/${total} ${percentage}%`;
     
     const progressBar = document.createElement("div");
     progressBar.style.position = "absolute";
@@ -69,15 +71,16 @@ const alterUi = () =>
     progressBar.style.top = "0px";
     progressBar.style.bottom = "0px";
     progressBar.style.backgroundColor = "#003600";
-    progressBar.style.width = `${Math.round(available / total * 100)}%`;
+    progressBar.style.width = `${percentage}%`;
     
-    const optionalCountriesSwitch = document.createElement("input");
-    optionalCountriesSwitch.type = "checkbox"
-    optionalCountriesSwitch.onclick = () =>
+    const optionalCountriesSwitch = document.createElement("button");
+    optionalCountriesSwitch.onclick = (e) =>
     {
+      e.preventDefault();
       allowOptionalCountries = !allowOptionalCountries;
       alterUi();
     } 
+    optionalCountriesSwitch.innerText = allowOptionalCountries ? "Lax" : "Strict";
     
     hudContainer.innerHTML = "";
     hudContainer.style.display = "flex";
@@ -86,8 +89,8 @@ const alterUi = () =>
     hudContainer.style.overflow = "hidden";
     
     hudContainer.appendChild(progressBar);
-    hudContainer.appendChild(optionalCountriesSwitch);
     hudContainer.appendChild(numberContainer);
+    hudContainer.appendChild(optionalCountriesSwitch);
   }
 
   const observeMutations = (onMutation) => {
