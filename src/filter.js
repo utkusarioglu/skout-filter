@@ -1,7 +1,8 @@
 const AVOIDED_USER_IDS = [
   "191277021",
   "207481255",
-  "191605086"
+  "191605086",
+  "198041585"
 ]
 
 const AVOIDED_COUNTRY_CODES = [
@@ -53,8 +54,9 @@ const AVOIDED_USERNAMES = [
   "femboy"
 ];
 
-const GREEN = "#003600";
+const DARK_GREEN = "#003600";
 const GRAY = "#202324";
+const LIGHT_GREEN = "rgb(37, 132, 37)";
 
 console.log({
   AVOIDED_USERNAMES,
@@ -98,7 +100,7 @@ const alterUi = () =>
     progressBar.style.left = "0px";
     progressBar.style.top = "0px";
     progressBar.style.bottom = "0px";
-    progressBar.style.backgroundColor = GREEN;
+    progressBar.style.backgroundColor = DARK_GREEN;
     progressBar.style.width = `${percentage}%`;
 
     const filterButtons = document.createElement("div");
@@ -118,17 +120,17 @@ const alterUi = () =>
     filterNone.innerText = "N";
     filterNone.style.border = "0px";
     filterNone.style.paddingLeft = "7px";
-    filterNone.style.background = filterMode == "none" ? GREEN : GRAY;
+    filterNone.style.background = filterMode == "none" ? LIGHT_GREEN : GRAY;
     filterNone.onclick = (e) => filterButtonsCommon(e, "none");
 
     filterLax.innerText = "L";
     filterLax.style.border = "0px";
-    filterLax.style.background = filterMode == "lax" ? GREEN : GRAY;
+    filterLax.style.background = filterMode == "lax" ? LIGHT_GREEN : GRAY;
     filterLax.onclick = (e) => filterButtonsCommon(e, "lax");
     filterStrict.innerText = "S";
     filterStrict.style.border = "0px";
     filterStrict.style.paddingRight = "7px";
-    filterStrict.style.background = filterMode == "strict" ? GREEN : GRAY;
+    filterStrict.style.background = filterMode == "strict" ? LIGHT_GREEN : GRAY;
     filterStrict.onclick = (e) => filterButtonsCommon(e, "strict");
     
     hudContainer.innerHTML = "";
