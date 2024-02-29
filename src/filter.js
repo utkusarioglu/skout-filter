@@ -70,7 +70,8 @@ const filterButtonsCommon = (e, newFilterMode, parent) => {
   for (const elem of parent.children) {
     elem.style.backgroundColor = "#131516";
   }
-  e.target.style.backgroundColor = "red";
+  console.log(e);
+  e.target.style.backgroundColor = "#ff0000";
 };
 
 const alterUi = () =>
