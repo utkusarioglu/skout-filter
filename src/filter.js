@@ -68,9 +68,12 @@ const filterButtonsCommon = (e, newFilterMode, parent) => {
   filterMode = newFilterMode;
   alterUi();
   for (const elem of parent.children) {
-    elem.style.background = "#131516";
+    if (elem === e.target) {
+      elem.style.background = "#ff0000";
+    } else {
+      elem.style.background = "#131516";
+    }
   }
-  e.target.style.background = "#ff0000";
 };
 
 const alterUi = () =>
