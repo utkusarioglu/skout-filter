@@ -106,6 +106,10 @@ const alterUi = () =>
     filterButtons.appendChild(filterNone);
     filterButtons.appendChild(filterLax);
     filterButtons.appendChild(filterStrict);
+
+    filterButtons.style.position = "absolute"
+    filterButtons.style.right = "8px";
+    filterButtons.style.pointerEvents = "all";
     
     filterNone.innerText = "N";
     filterNone.onclick = (e) =>
@@ -114,6 +118,7 @@ const alterUi = () =>
       filterMode = "none";
     }
     filterLax.innerText = "L";
+    filterLax.style.borderRadius = "0px";
     filterLax.onclick = (e) =>
     {
       filterButtonsCommon(e);
@@ -137,9 +142,6 @@ const alterUi = () =>
     //   alterUi();
     // } 
     // optionalCountriesSwitch.innerText = filterMode ? "Lax" : "Strict";
-    // optionalCountriesSwitch.style.position = "absolute"
-    // optionalCountriesSwitch.style.right = "8px";
-    // optionalCountriesSwitch.style.pointerEvents = "all";
 
 
 
