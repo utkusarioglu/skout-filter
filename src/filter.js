@@ -67,7 +67,9 @@ const filterButtonsCommon = (e, newFilterMode, parent) => {
   e.stopPropagation();
   filterMode = newFilterMode;
   alterUi();
-  parent.children.forEach((el) => el.style.backgroundColor = "#131516");
+  for (const elem of parent.children) {
+    elem.style.backgroundColor = "#131516";
+  }
   e.target.style.backgroundColor = "red";
 };
 
@@ -111,44 +113,19 @@ const alterUi = () =>
     filterButtons.style.position = "absolute"
     filterButtons.style.right = "8px";
     filterButtons.style.pointerEvents = "all";
+    filterButtons.style.overflow = "hidden";
+    filterButtons.style.borderRadius = "8px";
     
     filterNone.innerText = "N";
-    filterNone.style.borderTopRightRadius = "0px";
-    filterNone.style.borderBottomRightRadius = "0px";
+    filterNone.style.border = "0px";
     filterNone.onclick = (e) => filterButtonsCommon(e, "none", filterButtons);
 
     filterLax.innerText = "L";
-    filterLax.style.borderRadius = "0px";
+    filterLax.style.border = "0px";
     filterLax.onclick = (e) => filterButtonsCommon(e, "lax", filterButtons);
-    // filterLax.onclick = (e) =>
-    // {
-    //   filterMode = "lax";
-    //   filterButtonsCommon(e);
-    // }
     filterStrict.innerText = "S";
-    filterStrict.style.borderTopLeftRadius = "0px";
-    filterStrict.style.borderBottomLeftRadius = "0px";
+    filterStrict.style.border = "0px";
     filterStrict.onclick = (e) => filterButtonsCommon(e, "strict", filterButtons);
-    // filterStrict.onclick = (e) =>
-    // {
-    //   filterMode = "strict";
-    //   filterButtonsCommon(e);
-    // }
-
-
-
-    // const optionalCountriesSwitch = document.createElement("button");
-    // optionalCountriesSwitch.onclick = (e) =>
-    // {
-    //   e.preventDefault();
-    //   e.stopPropagation();
-    //   filterMode = !filterMode;
-    //   alterUi();
-    // } 
-    // optionalCountriesSwitch.innerText = filterMode ? "Lax" : "Strict";
-
-
-
     
     hudContainer.innerHTML = "";
     hudContainer.style.display = "flex";
