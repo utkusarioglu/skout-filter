@@ -125,6 +125,7 @@ const alterUi = () =>
       const username = usernameRaw.toUpperCase();
       const [ city, countryCodeRaw ] = card.querySelector("p.location.text-ellipsis").innerText.split(", ");
       const countryCode = countryCodeRaw.toUpperCase();
+
       if(avoidedCountryCodes.includes(countryCode)) {
         avoidSet.add(card);
       }
@@ -137,16 +138,15 @@ const alterUi = () =>
         avoidSet.add(card);
       }
     });
+
+    for(const unwanted of avoidSet) {
+      unwanted.style.opacity = 0.1;
+    }
      
     updateHud({
       total: cards.length,
       available: cards.length - avoidSet.size,
     });
-    
-  }
-
-  for(const unwanted of avoidSet) {
-    unwanted.style.opacity = 0.1;
   }
   
   evaluateCards();
