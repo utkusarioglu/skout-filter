@@ -62,9 +62,10 @@ console.log({
 
 let filterMode = "strict";
 
-const filterButtonsCommon = (e, parent) => {
+const filterButtonsCommon = (e, newFilterMode, parent) => {
   e.preventDefault();
   e.stopPropagation();
+  filterMode = newFilterMode;
   alterUi();
   parent.children.forEach((el) => el.style.backgroundColor = "#131516");
   e.target.style.backgroundColor = "red";
@@ -112,24 +113,27 @@ const alterUi = () =>
     filterButtons.style.pointerEvents = "all";
     
     filterNone.innerText = "N";
-    filterNone.onclick = (e) =>
-    {
-      filterButtonsCommon(e);
-      filterMode = "none";
-    }
+    filterNone.style.borderTopRightRadius = "0px";
+    filterNone.style.borderBottomRightRadius = "0px";
+    filterNone.onclick = (e) => filterButtonsCommon(e, "none", filterButtons);
+
     filterLax.innerText = "L";
     filterLax.style.borderRadius = "0px";
-    filterLax.onclick = (e) =>
-    {
-      filterButtonsCommon(e);
-      filterMode = "lax";
-    }
+    filterLax.onclick = (e) => filterButtonsCommon(e, "lax", filterButtons);
+    // filterLax.onclick = (e) =>
+    // {
+    //   filterMode = "lax";
+    //   filterButtonsCommon(e);
+    // }
     filterStrict.innerText = "S";
-    filterStrict.onclick = (e) =>
-    {
-      filterButtonsCommon(e);
-      filterMode = "strict";
-    }
+    filterStrict.style.borderTopLeftRadius = "0px";
+    filterStrict.style.borderBottomLeftRadius = "0px";
+    filterStrict.onclick = (e) => filterButtonsCommon(e, "strict", filterButtons);
+    // filterStrict.onclick = (e) =>
+    // {
+    //   filterMode = "strict";
+    //   filterButtonsCommon(e);
+    // }
 
 
 
