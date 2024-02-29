@@ -1,6 +1,7 @@
 const AVOIDED_USER_IDS = [
   "191277021",
-  "207481255"
+  "207481255",
+  "191605086"
 ]
 
 const AVOIDED_COUNTRY_CODES = [
@@ -59,7 +60,15 @@ console.log({
   AVOIDED_USER_IDS,
 });
 
-let allowOptionalCountries = false;
+let filterMode = "strict";
+
+const filterButtonsCommon = (e, parent) => {
+  e.preventDefault();
+  e.stopPropagation();
+  alterUi();
+  parent.children.forEach((el) => el.style.backgroundColor = "#131516");
+  e.target.style.backgroundColor = "red";
+};
 
 const alterUi = () =>
 {
@@ -89,19 +98,51 @@ const alterUi = () =>
     progressBar.style.bottom = "0px";
     progressBar.style.backgroundColor = "#003600";
     progressBar.style.width = `${percentage}%`;
+
+    const filterButtons = document.createElement("div");
+    const filterNone = document.createElement("button");
+    const filterLax = document.createElement("button");
+    const filterStrict = document.createElement("button");
+    filterButtons.appendChild(filterNone);
+    filterButtons.appendChild(filterLax);
+    filterButtons.appendChild(filterStrict);
     
-    const optionalCountriesSwitch = document.createElement("button");
-    optionalCountriesSwitch.onclick = (e) =>
+    filterNone.innerText = "N";
+    filterNone.onclick = (e) =>
     {
-      e.preventDefault();
-      e.stopPropagation();
-      allowOptionalCountries = !allowOptionalCountries;
-      alterUi();
-    } 
-    optionalCountriesSwitch.innerText = allowOptionalCountries ? "Lax" : "Strict";
-    optionalCountriesSwitch.style.position = "absolute"
-    optionalCountriesSwitch.style.right = "8px";
-    optionalCountriesSwitch.style.pointerEvents = "all";
+      filterButtonsCommon(e);
+      filterMode = "none";
+    }
+    filterLax.innerText = "L";
+    filterLax.onclick = (e) =>
+    {
+      filterButtonsCommon(e);
+      filterMode = "lax";
+    }
+    filterStrict.innerText = "S";
+    filterStrict.onclick = (e) =>
+    {
+      filterButtonsCommon(e);
+      filterMode = "strict";
+    }
+
+
+
+    // const optionalCountriesSwitch = document.createElement("button");
+    // optionalCountriesSwitch.onclick = (e) =>
+    // {
+    //   e.preventDefault();
+    //   e.stopPropagation();
+    //   filterMode = !filterMode;
+    //   alterUi();
+    // } 
+    // optionalCountriesSwitch.innerText = filterMode ? "Lax" : "Strict";
+    // optionalCountriesSwitch.style.position = "absolute"
+    // optionalCountriesSwitch.style.right = "8px";
+    // optionalCountriesSwitch.style.pointerEvents = "all";
+
+
+
     
     hudContainer.innerHTML = "";
     hudContainer.style.display = "flex";
@@ -111,7 +152,7 @@ const alterUi = () =>
     
     hudContainer.appendChild(progressBar);
     hudContainer.appendChild(numberContainer);
-    hudContainer.appendChild(optionalCountriesSwitch);
+    hudContainer.appendChild(filterButtons);
   }
 
   const observeMutations = (onMutation) => {
@@ -167,13 +208,11 @@ const alterUi = () =>
         avoidList.compareAndPush(element, "UserId", props);
       }
 
-      if(avoidedCountryCodes.includes(countryCode)) {
+      if(filterMode == "strict" && avoidedCountryCodes.includes(countryCode)) {
         avoidList.compareAndPush(element, "CountryCode", props);
       }
-      if (!allowOptionalCountries) {
-        if(optionalCountryCodes.includes(countryCode)) {
-          avoidList.compareAndPush(element, "OptionalCountry", props);
-        }
+      if(filterMode != "none" &&  optionalCountryCodes.includes(countryCode)) {
+        avoidList.compareAndPush(element, "OptionalCountry", props);
       }
       if(avoidedUsernames.some((avoided) => username.includes(avoided))) {
         avoidList.compareAndPush(element, "Username", props);
