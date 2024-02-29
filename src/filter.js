@@ -213,10 +213,12 @@ const alterUi = () =>
       element.style.opacity = 0.1;
     }
      
-    updateHud({
-      total: cards.length,
-      available: cards.length - avoidList.length,
-    });
+    if(cards.length && avoidList.length) {
+      updateHud({
+        total: cards.length,
+        available: cards.length - avoidList.length,
+      });
+    }
 
     console.log(
       filterMode,
@@ -230,11 +232,11 @@ const alterUi = () =>
 
 
 const mainElem = document.querySelector("div.container.main-content.app");
+
 const mainObserver = new MutationObserver(function(mutations) {
-  // console.log(mutations);
-  // onMutation();
   alterUi();
 });
+
 mainObserver.observe(mainElem, {
   attributes: false,
   characterData: false,
@@ -243,5 +245,3 @@ mainObserver.observe(mainElem, {
   attributeOldValue: false,
   characterDataOldValue: false
 });
-
-// setTimeout(alterUi, 2000);
