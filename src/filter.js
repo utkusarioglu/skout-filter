@@ -60,6 +60,8 @@ const alterUi = () =>
     }
     const percentage = Math.round(available / total * 100);
 
+    hudContainer.parentElement.style.pointerEvents = "none";
+
     hudContainer.style.backgroundColor = "rgb(0, 73, 119)";
     const numberContainer = document.createElement("div");
     numberContainer.style.zIndex = "1";
@@ -81,6 +83,9 @@ const alterUi = () =>
       alterUi();
     } 
     optionalCountriesSwitch.innerText = allowOptionalCountries ? "Lax" : "Strict";
+    optionalCountriesSwitch.style.position = "absolute"
+    optionalCountriesSwitch.style.left = "0px";
+    optionalCountriesSwitch.style.pointerEvents = "all";
     
     hudContainer.innerHTML = "";
     hudContainer.style.display = "flex";
