@@ -94,13 +94,16 @@ const alterUi = () =>
     const cards = cardContainer.querySelectorAll("li");
     const filterSet = new Set();
     cards.forEach((card) => { 
-      const [ username, ageRaw ] = card.querySelector("p.name").innerText.split(", ");
+      const [ usernameRaw, ageRaw ] = card.querySelector("p.name").innerText.split(", ");
       const age = +ageRaw;
+      const username = usernameRaw.toUpperCase();
       const [ city, countryCode ] = card.querySelector("p.location.text-ellipsis").innerText.split(", ");
       if(avoidedCountryCodes.includes(countryCode.toUpperCase())) {
+        console.log(`Avoid ${username},${age}, ${countryCode} because of countryCode`);
         filterSet.add(card);
       }
-      if(avoidedUsernames.some((avoided) => username.toUpperCase().contains(avoided))) {
+      if(avoidedUsernames.some((avoided) => username.includes(avoided))) {
+        console.log(`Avoid ${username},${age}, ${countryCode} because of username`);
         filterSet.add(card);
       }
     });
