@@ -3,8 +3,6 @@ const AVOIDED_COUNTRY_CODES = [
   "JP",
   "AR",
   "PK",
-  "PH",
-  "TH",
   "TW",
   "SA",
   "LA",
@@ -25,6 +23,11 @@ const AVOIDED_COUNTRY_CODES = [
   "NZ"
 ];
 
+const OPTIONAL_COUNTRY_CODES = [
+  "PH",
+  "TH",
+]
+
 const AVOIDED_USERNAMES = [
   "princess",
   "queen",
@@ -39,11 +42,14 @@ const AVOIDED_USERNAMES = [
   "femboy"
 ];
 
-console.log({AVOIDED_USERNAMES, AVOIDED_COUNTRY_CODES});
+console.log({ AVOIDED_USERNAMES, AVOIDED_COUNTRY_CODES });
+
+let allowOptionalCountries = false;
 
 const alterUi = () =>
 {
   const avoidedCountryCodes = AVOIDED_COUNTRY_CODES.map(v => v.toUpperCase());
+  const optionalCountryCodes = OPTIONAL_COUNTRY_CODES.map(v => v.toUpperCase());
   const avoidedUsernames = AVOIDED_USERNAMES.map(v => v.toUpperCase());
   const cardContainer = document.querySelector("ul.tiles.small-tiles");
   
@@ -63,7 +69,15 @@ const alterUi = () =>
     progressBar.style.top = "0px";
     progressBar.style.bottom = "0px";
     progressBar.style.backgroundColor = "#003600";
-    progressBar.style.width = `${Math.round(available/total*100)}%`;
+    progressBar.style.width = `${Math.round(available / total * 100)}%`;
+    
+    const optionalCountriesSwitch = document.createElement("input");
+    optionalCountriesSwitch.type = "checkbox"
+    optionalCountriesSwitch.onclick = () =>
+    {
+      allowOptionalCountries = !allowOptionalCountries;
+      alterUi();
+    } 
     
     hudContainer.innerHTML = "";
     hudContainer.style.display = "flex";
@@ -72,6 +86,7 @@ const alterUi = () =>
     hudContainer.style.overflow = "hidden";
     
     hudContainer.appendChild(progressBar);
+    hudContainer.appendChild(optionalCountriesSwitch);
     hudContainer.appendChild(numberContainer);
   }
 
@@ -97,13 +112,17 @@ const alterUi = () =>
       const [ usernameRaw, ageRaw ] = card.querySelector("p.name").innerText.split(", ");
       const age = +ageRaw;
       const username = usernameRaw.toUpperCase();
-      const [ city, countryCode ] = card.querySelector("p.location.text-ellipsis").innerText.split(", ");
-      if(avoidedCountryCodes.includes(countryCode.toUpperCase())) {
-        console.log(`Avoid ${username},${age}, ${countryCode} because of countryCode`);
+      const [ city, countryCodeRaw ] = card.querySelector("p.location.text-ellipsis").innerText.split(", ");
+      const countryCode = countryCodeRaw.toUpperCase();
+      if(avoidedCountryCodes.includes(countryCode)) {
         filterSet.add(card);
       }
+      if (!allowOptionalCountries) {
+        if(optionalCountryCodes.includes(countryCode)) {
+          filterSet.add(card);
+        }
+      }
       if(avoidedUsernames.some((avoided) => username.includes(avoided))) {
-        console.log(`Avoid ${username},${age}, ${countryCode} because of username`);
         filterSet.add(card);
       }
     });
