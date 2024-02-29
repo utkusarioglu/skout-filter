@@ -116,34 +116,37 @@ const alterUi = () =>
   
   const evaluateCards = () => {
     const cards = cardContainer.querySelectorAll("li");
-    const filterSet = new Set();
+    const avoidSet = new Set();
     cards.forEach((card) => { 
+      card.style.opacity = 1;
+
       const [ usernameRaw, ageRaw ] = card.querySelector("p.name").innerText.split(", ");
       const age = +ageRaw;
       const username = usernameRaw.toUpperCase();
       const [ city, countryCodeRaw ] = card.querySelector("p.location.text-ellipsis").innerText.split(", ");
       const countryCode = countryCodeRaw.toUpperCase();
       if(avoidedCountryCodes.includes(countryCode)) {
-        filterSet.add(card);
+        avoidSet.add(card);
       }
       if (!allowOptionalCountries) {
         if(optionalCountryCodes.includes(countryCode)) {
-          filterSet.add(card);
+          avoidSet.add(card);
         }
       }
       if(avoidedUsernames.some((avoided) => username.includes(avoided))) {
-        filterSet.add(card);
+        avoidSet.add(card);
       }
     });
      
     updateHud({
       total: cards.length,
-      available: cards.length - filterSet.size,
+      available: cards.length - avoidSet.size,
     });
     
-    for(const unwanted of filterSet) {
-      unwanted.style.opacity = 0.1;
-    }
+  }
+
+  for(const unwanted of avoidSet) {
+    unwanted.style.opacity = 0.1;
   }
   
   evaluateCards();
