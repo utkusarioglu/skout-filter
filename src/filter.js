@@ -138,14 +138,14 @@ const alterUi = () =>
       if (index === -1) {
         avoidList.push({
           element: newElement,
-          reason: newReason,
+          reasons: [newReason],
           props
         });
       } else {
         avoidList[index] = {
           ...avoidList[index],
-          reason: {
-            ...avoidList[index].reason,
+          reasons: {
+            ...avoidList[index].reasons,
             newReason
           },
         }
