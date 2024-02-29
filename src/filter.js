@@ -26,6 +26,9 @@ const AVOIDED_COUNTRY_CODES = [
 ];
 
 const AVOIDED_USERNAMES = [
+  "princess",
+  "queen",
+  "money",
   "trans",
   "bitch",
   "420",
