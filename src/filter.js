@@ -31,8 +31,11 @@ const AVOIDED_USERNAMES = [
   "Baby",
   "sex",
   "cum",
-  "ladyboy"
+  "ladyboy",
+  "femboy"
 ];
+
+console.log({AVOIDED_USERNAMES, AVOIDED_COUNTRY_CODES});
 
 const alterUi = () =>
 {
