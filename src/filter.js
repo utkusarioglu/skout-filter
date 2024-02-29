@@ -79,12 +79,13 @@ const alterUi = () =>
     optionalCountriesSwitch.onclick = (e) =>
     {
       e.preventDefault();
+      e.stopPropagation();
       allowOptionalCountries = !allowOptionalCountries;
       alterUi();
     } 
     optionalCountriesSwitch.innerText = allowOptionalCountries ? "Lax" : "Strict";
     optionalCountriesSwitch.style.position = "absolute"
-    optionalCountriesSwitch.style.left = "0px";
+    optionalCountriesSwitch.style.right = "8px";
     optionalCountriesSwitch.style.pointerEvents = "all";
     
     hudContainer.innerHTML = "";
