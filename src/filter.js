@@ -100,7 +100,7 @@ const alterUi = () =>
       if(avoidedCountryCodes.includes(countryCode.toUpperCase())) {
         filterSet.add(card);
       }
-      if(avoidedUsernames.includes(username.toUpperCase())) {
+      if(avoidedUsernames.some((avoided) => username.toUpperCase().contains(avoided))) {
         filterSet.add(card);
       }
     });
