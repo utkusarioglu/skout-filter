@@ -51,7 +51,9 @@ const AVOIDED_USERNAMES = [
   "sex",
   "cum",
   "ladyboy",
-  "femboy"
+  "femboy",
+  "naughty",
+  "exotic",
 ];
 
 const DARK_GREEN = "#003600";
