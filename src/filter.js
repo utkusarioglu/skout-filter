@@ -146,7 +146,7 @@ const alterUi = () =>
     hudContainer.appendChild(filterButtons);
   }
 
-  const observeMutations = (onMutation) => {
+  const observeMutations= (onMutation) => {
     const mutationObserver = new MutationObserver(function(mutations) {
       console.log("Mutation happened");
       onMutation();
@@ -198,7 +198,6 @@ const alterUi = () =>
       if (AVOIDED_USER_IDS.includes(profileId)) {
         avoidList.compareAndPush(element, "UserId", props);
       }
-
       if(filterMode !== "none" && avoidedCountryCodes.includes(countryCode)) {
         avoidList.compareAndPush(element, "CountryCode", props);
       }
@@ -229,4 +228,20 @@ const alterUi = () =>
   observeMutations(evaluateCards);
 }
 
-setTimeout(alterUi, 2000);
+
+const mainElem = document.querySelector("div.container.main-content.app");
+const mainObserver = new MutationObserver(function(mutations) {
+  // console.log(mutations);
+  // onMutation();
+  alterUi();
+});
+mainObserver.observe(mainElem, {
+  attributes: false,
+  characterData: false,
+  childList: true,
+  subtree: false,
+  attributeOldValue: false,
+  characterDataOldValue: false
+});
+
+// setTimeout(alterUi, 2000);
