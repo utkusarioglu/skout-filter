@@ -186,7 +186,7 @@ const alterUi = () =>
      
     updateHud({
       total: cards.length,
-      available: cards.length - avoidSet.size,
+      available: cards.length - avoidList.length,
     });
 
     console.log(avoidList.map(({reason, props}) => ({reason, ...props})));
