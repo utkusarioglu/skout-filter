@@ -1,4 +1,5 @@
 const AVOIDED_COUNTRY_CODES = [
+  "AE",
   "JP",
   "AR",
   "PK",
