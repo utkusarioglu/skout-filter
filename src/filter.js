@@ -1,8 +1,14 @@
 const AVOIDED_USER_IDS = [
-  "191277021"
+  "191277021",
+  "207481255"
 ]
 
 const AVOIDED_COUNTRY_CODES = [
+  "SG",
+  "CN",
+  "KH",
+  "MY",
+  "JO",
   "AE",
   "JP",
   "AR",
@@ -125,42 +131,65 @@ const alterUi = () =>
   
   const evaluateCards = () => {
     const cards = cardContainer.querySelectorAll("li");
-    const avoidSet = new Set();
-    cards.forEach((card) => { 
-      card.style.opacity = 1;
+    const avoidList = [];
+    avoidList.compareAndPush = function (newElement, newReason, props)
+    {
+      const index = avoidList.findIndex(({ element }) => element === newElement);
+      if (index === -1) {
+        avoidList.push({
+          element: newElement,
+          reason: newReason,
+          props
+        });
+      } else {
+        avoidList[index] = {
+          ...avoidList[index],
+          reason: {
+            ...avoidList[index].reason,
+            newReason
+          },
+        }
+      }
+    }
+    
+    cards.forEach((element) => { 
+      element.style.opacity = 1;
 
-      const [ usernameRaw, ageRaw ] = card.querySelector("p.name").innerText.split(", ");
+      const [ usernameRaw, ageRaw ] = element.querySelector("p.name").innerText.split(", ");
       const age = +ageRaw;
       const username = usernameRaw.toUpperCase();
-      const [ city, countryCodeRaw ] = card.querySelector("p.location.text-ellipsis").innerText.split(", ");
+      const [ city, countryCodeRaw ] = element.querySelector("p.location.text-ellipsis").innerText.split(", ");
       const countryCode = countryCodeRaw.toUpperCase();
-      const profileId = card.querySelector("a").href.split("/").at(-1);
+      const profileId = element.querySelector("a").href.split("/").at(-1);
+      const props = { username, age, city, countryCode };
 
       if (AVOIDED_USER_IDS.includes(profileId)) {
-        avoidSet.add(card);
+        avoidList.compareAndPush(element, "UserId", props);
       }
 
       if(avoidedCountryCodes.includes(countryCode)) {
-        avoidSet.add(card);
+        avoidList.compareAndPush(element, "CountryCode", props);
       }
       if (!allowOptionalCountries) {
         if(optionalCountryCodes.includes(countryCode)) {
-          avoidSet.add(card);
+          avoidList.compareAndPush(element, "OptionalCountry", props);
         }
       }
       if(avoidedUsernames.some((avoided) => username.includes(avoided))) {
-        avoidSet.add(card);
+        avoidList.compareAndPush(element, "Username", props);
       }
     });
 
-    for(const unwanted of avoidSet) {
-      unwanted.style.opacity = 0.1;
+    for(const {element} of avoidList) {
+      element.style.opacity = 0.1;
     }
      
     updateHud({
       total: cards.length,
       available: cards.length - avoidSet.size,
     });
+
+    console.log(avoidList.map(({reason, props}) => ({reason, ...props})));
   }
   
   evaluateCards();
