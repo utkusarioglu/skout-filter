@@ -199,10 +199,10 @@ const alterUi = () =>
         avoidList.compareAndPush(element, "UserId", props);
       }
 
-      if(filterMode == "strict" && avoidedCountryCodes.includes(countryCode)) {
+      if(filterMode !== "none" && avoidedCountryCodes.includes(countryCode)) {
         avoidList.compareAndPush(element, "CountryCode", props);
       }
-      if(filterMode != "none" &&  optionalCountryCodes.includes(countryCode)) {
+      if(filterMode === "strict" &&  optionalCountryCodes.includes(countryCode)) {
         avoidList.compareAndPush(element, "OptionalCountry", props);
       }
       if(avoidedUsernames.some((avoided) => username.includes(avoided))) {
