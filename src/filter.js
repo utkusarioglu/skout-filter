@@ -115,7 +115,7 @@ const alterUi = () =>
     filterButtons.style.right = "8px";
     filterButtons.style.pointerEvents = "all";
     filterButtons.style.overflow = "hidden";
-    filterButtons.style.borderRadius = "8px";
+    filterButtons.style.borderRadius = "7px";
     
     filterNone.innerText = "N";
     filterNone.style.border = "0px";
