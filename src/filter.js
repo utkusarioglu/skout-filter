@@ -189,7 +189,7 @@ const alterUi = () =>
       available: cards.length - avoidList.length,
     });
 
-    console.log(avoidList.map(({reason, props}) => ({reason, ...props})));
+    console.log(avoidList.map(({reasons, props}) => ({reasons, ...props})));
   }
   
   evaluateCards();
