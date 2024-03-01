@@ -50,7 +50,8 @@ const OPTIONAL_COUNTRY_CODES = [
   "VE",
   "CL",
   "CR",
-  "EC"
+  "EC",
+  "GH"
 ]
 
 const AVOIDED_USERNAMES = [
