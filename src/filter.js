@@ -38,6 +38,9 @@ const AVOIDED_COUNTRY_CODES = [
 ];
 
 const OPTIONAL_COUNTRY_CODES = [
+  "MO",
+  "UG",
+  "RW",
   "PH",
   "TH",
   "NG",
