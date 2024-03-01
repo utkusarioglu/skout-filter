@@ -244,18 +244,24 @@ const alterUi = () =>
   observeMutations(evaluateCards);
 }
 
+function main()
+{
+  const mainElem = document.querySelector("div.container.main-content.app");
 
-const mainElem = document.querySelector("div.container.main-content.app");
+  const mainObserver = new MutationObserver(function(mutations) {
+    alterUi();
+  });
 
-const mainObserver = new MutationObserver(function(mutations) {
-  alterUi();
-});
+  mainObserver.observe(mainElem, {
+    attributes: false,
+    characterData: false,
+    childList: true,
+    subtree: false,
+    attributeOldValue: false,
+    characterDataOldValue: false
+  });
 
-mainObserver.observe(mainElem, {
-  attributes: false,
-  characterData: false,
-  childList: true,
-  subtree: false,
-  attributeOldValue: false,
-  characterDataOldValue: false
-});
+  setTimeout(() => alterUi(), 1000);
+}
+
+main();
