@@ -35,7 +35,7 @@ const AVOIDED_COUNTRY_CODES = [
   "QA",
   "NZ",
   "KW",
-  "LE",
+  "LB",
 ];
 
 const OPTIONAL_COUNTRY_CODES = [
