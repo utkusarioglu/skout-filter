@@ -60,8 +60,8 @@ const OPTIONAL_COUNTRY_CODES = [
   "CL",
   "CR",
   "EC",
-  "GH"
-]
+  "GH",
+];
 
 const AVOIDED_USERNAMES = [
   "princess",
