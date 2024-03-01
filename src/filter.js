@@ -6,6 +6,7 @@ const AVOIDED_USER_IDS = [
 ]
 
 const AVOIDED_COUNTRY_CODES = [
+  "IQ",
   "SG",
   "CN",
   "KH",
@@ -38,6 +39,14 @@ const AVOIDED_COUNTRY_CODES = [
 const OPTIONAL_COUNTRY_CODES = [
   "PH",
   "TH",
+  "NG",
+  "KE",
+  "BR",
+  "CO",
+  "MX",
+  "MW",
+  "ZM",
+  "VE"
 ]
 
 const AVOIDED_USERNAMES = [
