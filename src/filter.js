@@ -47,7 +47,10 @@ const OPTIONAL_COUNTRY_CODES = [
   "MX",
   "MW",
   "ZM",
-  "VE"
+  "VE",
+  "CL",
+  "CR",
+  "EC"
 ]
 
 const AVOIDED_USERNAMES = [
