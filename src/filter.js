@@ -33,7 +33,8 @@ const AVOIDED_COUNTRY_CODES = [
   "IR",
   "OK",
   "QA",
-  "NZ"
+  "NZ",
+  "KW",
 ];
 
 const OPTIONAL_COUNTRY_CODES = [
