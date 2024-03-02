@@ -39,6 +39,9 @@ const AVOIDED_COUNTRY_CODES = [
 ];
 
 const OPTIONAL_COUNTRY_CODES = [
+  "BO",
+  "NI",
+  "DO",
   "KR",
   "BY",
   "BJ",
@@ -253,24 +256,25 @@ const alterUi = () =>
   observeMutations(evaluateCards);
 }
 
-function main()
-{
-  const mainElem = document.querySelector("div.container.main-content.app");
+function main() {
+  setTimeout(() => {
+    const mainElem = document.querySelector("div.container.main-content.app");
 
-  const mainObserver = new MutationObserver(function(mutations) {
+    const mainObserver = new MutationObserver(function(mutations) {
+      alterUi();
+    });
+
+    mainObserver.observe(mainElem, {
+      attributes: false,
+      characterData: false,
+      childList: true,
+      subtree: false,
+      attributeOldValue: false,
+      characterDataOldValue: false
+    });
+
     alterUi();
-  });
-
-  mainObserver.observe(mainElem, {
-    attributes: false,
-    characterData: false,
-    childList: true,
-    subtree: false,
-    attributeOldValue: false,
-    characterDataOldValue: false
-  });
-
-  setTimeout(() => alterUi(), 1000);
+  }, 1500);
 }
 
 main();
